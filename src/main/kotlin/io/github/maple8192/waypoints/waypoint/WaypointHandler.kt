@@ -41,4 +41,10 @@ class WaypointHandler {
         if (!guides.containsKey(uuid)) return mapOf()
         return guides[uuid]!!.toMap()
     }
+
+    fun removeGuide(uuid: UUID, name: String) {
+        if (!(guides[uuid] ?: return).containsKey(name)) return
+        guides[uuid]?.get(name)?.isVisible = false
+        guides[uuid]?.remove(name)
+    }
 }
