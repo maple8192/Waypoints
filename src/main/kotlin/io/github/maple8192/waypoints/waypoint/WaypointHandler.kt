@@ -17,4 +17,9 @@ class WaypointHandler {
         if (!waypoints.containsKey(uuid)) return null
         return waypoints[uuid]?.get(name)
     }
+
+    fun getWaypoints(uuid: UUID): Map<String, Location> {
+        if (!waypoints.containsKey(uuid)) return mapOf()
+        return waypoints[uuid]!!.toMap()
+    }
 }
