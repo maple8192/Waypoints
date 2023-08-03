@@ -24,6 +24,12 @@ class CancelGuide : CommandExecutor, TabCompleter {
     }
 
     override fun onTabComplete(sender: CommandSender, command: Command, label: String, args: Array<out String>?): MutableList<String>? {
+        if (sender !is Player) return null
+
+        if (args?.size == 1) {
+            return Waypoints.handler.getGuides(sender.uniqueId).keys.filter { it.startsWith(args[0]) }.toMutableList()
+        }
+
         return null
     }
 }

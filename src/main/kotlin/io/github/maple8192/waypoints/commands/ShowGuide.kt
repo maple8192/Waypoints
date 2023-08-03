@@ -19,6 +19,13 @@ class ShowGuide : CommandExecutor, TabCompleter {
     }
 
     override fun onTabComplete(sender: CommandSender, command: Command, label: String, args: Array<out String>?): MutableList<String>? {
+        if (sender !is Player) return null
+
+        if (args?.size == 1) {
+            val guides = Waypoints.handler.getGuides(sender.uniqueId).keys
+            return Waypoints.handler.getWaypoints(sender.uniqueId).keys.filter { !guides.contains(it) }.filter { it.startsWith(args[0]) }.toMutableList()
+        }
+
         return null
     }
 }
