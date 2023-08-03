@@ -1,0 +1,4 @@
+name: Waypoints
+main: io.github.maple8192.waypoints.Waypoints
+version: '${version}'
+api-version: 1.20
