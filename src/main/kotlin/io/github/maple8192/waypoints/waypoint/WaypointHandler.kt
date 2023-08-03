@@ -34,6 +34,6 @@ class WaypointHandler {
         if (guides[uuid]?.containsKey(name) == true) return
 
         if (!guides.containsKey(uuid)) guides[uuid] = mutableMapOf()
-        guides[uuid]?.put(name, Bukkit.createBossBar("", BarColor.GREEN, BarStyle.SOLID))
+        guides[uuid]?.put(name, Bukkit.createBossBar("", BarColor.GREEN, BarStyle.SOLID).also { it.addPlayer(Bukkit.getPlayer(uuid) ?: return); it.isVisible = true })
     }
 }
