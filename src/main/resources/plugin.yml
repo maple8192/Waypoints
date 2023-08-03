@@ -7,6 +7,9 @@ commands:
   setwaypoint:
     aliases: [ wp ]
     description: Create waypoint
+  removewaypoint:
+    aliases: [ rm ]
+    description: Remove waypoint
   waypoints:
     aliases: [ wplist ]
     description: Show waypoint list
