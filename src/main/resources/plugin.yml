@@ -2,3 +2,19 @@ name: Waypoints
 main: io.github.maple8192.waypoints.Waypoints
 version: '${version}'
 api-version: 1.20
+
+commands:
+  setwaypoint:
+    aliases: [ wp ]
+    description: Create waypoint
+  removewaypoint:
+    aliases: [ rm ]
+    description: Remove waypoint
+  waypoints:
+    aliases: [ wplist ]
+    description: Show waypoint list
+  go:
+    description: Show guide to waypoint
+  cancel:
+    aliases: [ cc ]
+    description: Cancel guide
