@@ -1,5 +1,6 @@
 package io.github.maple8192.waypoints.yml
 
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
@@ -24,7 +25,7 @@ class WaypointData(private val plugin: Plugin) {
 
         val waypoints = mutableMapOf<UUID, MutableMap<String, Location>>()
         for (uuid in config!!.getConfigurationSection("")!!.getKeys(false)) {
-            val u = UUID.fromString(config!!.getString(uuid) ?: continue)
+            val u = UUID.fromString(uuid)
             waypoints[u] = mutableMapOf()
             for (name in (config!!.getConfigurationSection(uuid) ?: continue).getKeys(false)) {
                 waypoints[u]?.put(name, config!!.getLocation("$uuid.$name") ?: continue)
@@ -32,6 +33,15 @@ class WaypointData(private val plugin: Plugin) {
         }
 
         return waypoints
+    }
+
+    fun save(waypoints: Map<UUID, Map<String, Location>>) {
+        for (player in waypoints.entries) {
+            for (waypoint in player.value.entries) {
+                config!!.set("${player.key}.${waypoint.key}", waypoint.value)
+            }
+        }
+        saveConfig()
     }
 
     private fun saveDefaultConfig() {

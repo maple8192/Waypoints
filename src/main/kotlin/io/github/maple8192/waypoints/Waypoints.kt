@@ -7,7 +7,7 @@ import io.github.maple8192.waypoints.yml.WaypointData
 import org.bukkit.plugin.java.JavaPlugin
 
 class Waypoints : JavaPlugin() {
-    val repository = WaypointData(this)
+    private val repository = WaypointData(this)
 
     override fun onEnable() {
         handler = WaypointHandler(repository.load())
@@ -19,6 +19,10 @@ class Waypoints : JavaPlugin() {
         getCommand("cancel")?.setExecutor(CancelGuide())
 
         BossBarHandler().runTaskTimer(this, 0, 1)
+    }
+
+    override fun onDisable() {
+        repository.save(handler.getWaypointsAll())
     }
 
     companion object {

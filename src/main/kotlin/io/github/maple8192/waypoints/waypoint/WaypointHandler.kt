@@ -35,6 +35,10 @@ class WaypointHandler(fromConfig: Map<UUID, Map<String, Location>>) {
         return waypoints[uuid]!!.toMap()
     }
 
+    fun getWaypointsAll(): Map<UUID, Map<String, Location>> {
+        return waypoints.toMap()
+    }
+
     fun addGuide(uuid: UUID, name: String) {
         if (!waypoints.containsKey(uuid)) return
         if (waypoints[uuid]?.get(name) == null) return
