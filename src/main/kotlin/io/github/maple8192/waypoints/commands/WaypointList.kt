@@ -13,7 +13,8 @@ class WaypointList : CommandExecutor {
         if (sender !is Player) return true
 
         val waypoints = Waypoints.handler.getWaypoints(sender.uniqueId)
-        for (wp in waypoints.entries) {
+        sender.sendMessage(Component.text("===== ").append(Component.text("Waypoints").color(NamedTextColor.AQUA)).append(Component.text(" =====")))
+        for (wp in waypoints.toSortedMap().entries) {
             sender.sendMessage(
                 Component.text("- ${wp.key}")
                     .append(Component.text("     "))
