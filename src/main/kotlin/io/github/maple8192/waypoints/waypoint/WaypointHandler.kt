@@ -18,6 +18,13 @@ class WaypointHandler {
         waypoints[uuid]?.put(name, location)
     }
 
+    fun removeWaypoint(uuid: UUID, name: String) {
+        if (!waypoints.containsKey(uuid)) return
+        if (waypoints[uuid]?.containsKey(name) == false) return
+        removeGuide(uuid, name)
+        waypoints[uuid]?.remove(name)
+    }
+
     fun getWaypoint(uuid: UUID, name: String): Location? {
         if (!waypoints.containsKey(uuid)) return null
         return waypoints[uuid]?.get(name)
