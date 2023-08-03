@@ -7,8 +7,8 @@ import org.bukkit.boss.BarStyle
 import org.bukkit.boss.BossBar
 import java.util.*
 
-class WaypointHandler {
-    private val waypoints: MutableMap<UUID, MutableMap<String, Location>> = mutableMapOf()
+class WaypointHandler(fromConfig: Map<UUID, Map<String, Location>>) {
+    private val waypoints: MutableMap<UUID, MutableMap<String, Location>> = fromConfig.map { it.key to it.value.toMutableMap() }.toMap().toMutableMap()
     private val guides: MutableMap<UUID, MutableMap<String, BossBar>> = mutableMapOf()
 
     fun addWaypoint(uuid: UUID, name: String, location: Location) {
@@ -33,6 +33,10 @@ class WaypointHandler {
     fun getWaypoints(uuid: UUID): Map<String, Location> {
         if (!waypoints.containsKey(uuid)) return mapOf()
         return waypoints[uuid]!!.toMap()
+    }
+
+    fun getWaypointsAll(): Map<UUID, Map<String, Location>> {
+        return waypoints.toMap()
     }
 
     fun addGuide(uuid: UUID, name: String) {
