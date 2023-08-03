@@ -10,6 +10,8 @@ class Waypoints : JavaPlugin() {
     val repository = WaypointData(this)
 
     override fun onEnable() {
+        handler = WaypointHandler(repository.load())
+
         getCommand("setwaypoint")?.setExecutor(SetWaypoint())
         getCommand("removewaypoint")?.setExecutor(RemoveWaypoint())
         getCommand("waypoints")?.setExecutor(WaypointList())
@@ -20,6 +22,6 @@ class Waypoints : JavaPlugin() {
     }
 
     companion object {
-        val handler = WaypointHandler()
+        lateinit var handler: WaypointHandler
     }
 }
