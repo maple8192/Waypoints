@@ -36,6 +36,9 @@ class WaypointData(private val plugin: Plugin) {
     }
 
     fun save(waypoints: Map<UUID, Map<String, Location>>) {
+        for (uuid in config!!.getConfigurationSection("")!!.getKeys(false)) {
+            config!!.set(uuid, null)
+        }
         for (player in waypoints.entries) {
             for (waypoint in player.value.entries) {
                 config!!.set("${player.key}.${waypoint.key}", waypoint.value)
