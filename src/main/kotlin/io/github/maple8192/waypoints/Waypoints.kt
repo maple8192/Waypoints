@@ -4,6 +4,7 @@ import io.github.maple8192.waypoints.commands.*
 import io.github.maple8192.waypoints.timer.BossBarHandler
 import io.github.maple8192.waypoints.waypoint.WaypointHandler
 import io.github.maple8192.waypoints.yml.WaypointData
+import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
 class Waypoints : JavaPlugin() {
@@ -22,6 +23,11 @@ class Waypoints : JavaPlugin() {
     }
 
     override fun onDisable() {
+        Bukkit.getOnlinePlayers().forEach {
+            handler.getGuides(it.uniqueId).forEach { guide ->
+                handler.removeGuide(it.uniqueId, guide.key)
+            }
+        }
         repository.save(handler.getWaypointsAll())
     }
 
