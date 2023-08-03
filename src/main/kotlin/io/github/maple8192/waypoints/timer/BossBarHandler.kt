@@ -26,8 +26,9 @@ class BossBarHandler : BukkitRunnable() {
                             val destVec = loc.toVector().subtract(player.location.toVector()).also { vec -> vec.y = 0.0 }
                             val playerVec = Vector(-sin(player.location.yaw * 3.14159265 / 180.0), 0.0, cos(player.location.yaw * 3.14159265 / 180.0))
                             val angle = destVec.angle(playerVec) * 180.0 / 3.14159265
-                            val mul = Vector(destVec.y * playerVec.z - destVec.z * playerVec.y, destVec.z * playerVec.x - destVec.x * playerVec.z, destVec.x * playerVec.y - destVec.y * playerVec.x).dot(Vector(0.0, 1.0, 0.0))
-                            val diff = (mul / abs(mul) * angle / 5.0).roundToInt()
+                            val angleF = if (angle.isNaN()) 0.0001 else angle
+                            val mul = destVec.z * playerVec.x - destVec.x * playerVec.z
+                            val diff = (mul / abs(mul + 0.000001) * angleF / 5.0).roundToInt()
 
                             it.append(if (diff < -18) { "${ChatColor.RED}<${ChatColor.RESET} " } else { "  " })
                             for (i in -18..18) {

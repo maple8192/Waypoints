@@ -13,11 +13,11 @@ class Waypoints : JavaPlugin() {
     override fun onEnable() {
         handler = WaypointHandler(repository.load())
 
-        getCommand("setwaypoint")?.setExecutor(SetWaypoint())
-        getCommand("removewaypoint")?.setExecutor(RemoveWaypoint())
-        getCommand("waypoints")?.setExecutor(WaypointList())
-        getCommand("go")?.setExecutor(ShowGuide())
-        getCommand("cancel")?.setExecutor(CancelGuide())
+        getCommand("setwaypoint")?.let { val c = SetWaypoint(); it.setExecutor(c); it.tabCompleter = c }
+        getCommand("removewaypoint")?.let { val c = RemoveWaypoint(); it.setExecutor(c); it.tabCompleter = c }
+        getCommand("waypoints")?.let { val c = WaypointList(); it.setExecutor(c); it.tabCompleter = c }
+        getCommand("go")?.let { val c = ShowGuide(); it.setExecutor(c); it.tabCompleter = c }
+        getCommand("cancel")?.let { val c = CancelGuide(); it.setExecutor(c); it.tabCompleter = c }
 
         BossBarHandler().runTaskTimer(this, 0, 1)
     }
